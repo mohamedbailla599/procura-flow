@@ -1,15 +1,19 @@
-# Gestion des achats - architecture microservices
+# ProcuraFlow — Gestion des fournisseurs et des achats (Architecture Microservices)
 
-Ce dépôt contient le squelette du projet de gestion des achats. Les services,
-le schéma de base de données et les requêtes Postman restent à définir avant
-de pouvoir lancer l'application.
+Ce dépôt contient les quatre microservices du projet académique **ProcuraFlow**, partageant une base de données **Neon PostgreSQL 17** (`procura_flow`) avec isolation stricte par schéma PostgreSQL et communication inter-services par API REST JSON.
 
-## Services prévus
+## Services du projet
 
-- `service-fournisseurs-mohamed` : gestion des fournisseurs.
-- `service-commandes-yassine` : gestion des commandes d'achat.
-- `service-receptions-ali` : suivi des réceptions.
-- `service-factures-hamza` : gestion des factures.
+| Service | Répertoire | Responsable | Technologie | Port | Schéma PostgreSQL | Statut |
+|---|---|---|---|---:|---|---|
+| **Fournisseurs** | `service-fournisseurs-mohamed` | Mohamed Bailla | Java / Spring Boot 3 | `8081` | `schema_fournisseurs` | Implémenté & testé |
+| **Commandes** | `service-commandes-yassine` | Yassine | Java / Spring Boot | `8082` | `schema_commandes` | Squelette |
+| **Réceptions** | `service-receptions-ali` | Ali | Java / Spring Boot | `8083` | `schema_receptions` | Squelette |
+| **Factures** | `service-factures-hamza` | Hamza | Node.js | `8084` | `schema_factures` | Squelette |
 
-Les fichiers `Dockerfile`, `database/init.sql` et `docker-compose.yml` sont des
-points de départ à compléter avec la stack et le modèle de données retenus.
+## Documentation
+
+- **Contrat d'intégration inter-services :** [`docs/integration-contract.md`](docs/integration-contract.md)
+- **Documentation complète du service Fournisseurs :** [`service-fournisseurs-mohamed/README.md`](service-fournisseurs-mohamed/README.md)
+- **Variables d'environnement d'exemple :** [`.env.example`](.env.example) et [`service-fournisseurs-mohamed/.env.example`](service-fournisseurs-mohamed/.env.example)
+- **Collection Postman :** [`postman/Collection_Projet_Achats_Univ.json`](postman/Collection_Projet_Achats_Univ.json)

@@ -29,7 +29,13 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - DB_URL=jdbc:postgresql://postgres-db:5432/db_achats_univ?currentSchema=schema_fournisseurs
+      - SERVER_PORT=${SERVER_PORT:-8081}
+      - DATABASE_URL=${DATABASE_URL:-jdbc:postgresql://postgres-db:5432/db_achats_univ?currentSchema=schema_fournisseurs}
+      - DATABASE_USERNAME=${DATABASE_USERNAME:-admin_achats}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD:-pass_secure}
+      - DATABASE_SCHEMA=schema_fournisseurs
+      - JPA_DDL_AUTO=${JPA_DDL_AUTO:-validate}
+      - COMMANDES_SERVICE_URL=${COMMANDES_SERVICE_URL:-http://service-commandes:8082}
     depends_on:
       - postgres-db
     networks:

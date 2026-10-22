@@ -1,0 +1,66 @@
+server:
+  port: ${SERVER_PORT:8081}
+  address: 0.0.0.0
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
+
+spring:
+  application:
+    name: service-fournisseurs
+
+  datasource:
+    username: ${DATABASE_USERNAME:}
+    password: ${DATABASE_PASSWORD:}
+    hikari:
+      maximum-pool-size: ${DB_POOL_MAX_SIZE:5}
+      minimum-idle: ${DB_POOL_MIN_IDLE:1}
+      connection-timeout: ${DB_CONNECTION_TIMEOUT_MS:10000}
+      idle-timeout: 300000
+      max-lifetime: 600000
+
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    properties:
+      hibernate:
+        default_schema: ${DATABASE_SCHEMA:schema_fournisseurs}
+        format_sql: false
+        jdbc:
+          time_zone: UTC
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+app:
+  datasource:
+    neon-resolver-enabled: true
+    raw-url: ${DATABASE_URL:}
+    schema: ${DATABASE_SCHEMA:schema_fournisseurs}
+  commandes:
+    base-url: ${COMMANDES_SERVICE_URL:http://localhost:8082}
+    connect-timeout-ms: ${COMMANDES_CONNECT_TIMEOUT_MS:3000}
+    read-timeout-ms: ${COMMANDES_READ_TIMEOUT_MS:5000}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method

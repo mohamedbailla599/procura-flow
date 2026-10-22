@@ -1,0 +1,5 @@
+{
+  "name": "Achats Univ — Architecture Microservices",
+  "description": "Plateforme de gestion des achats universitaires distribuée en 4 microservices (Fournisseurs, Commandes, Réceptions, Factures) avec API REST et console de supervision.",
+  "requestFramePermissions": []
+}

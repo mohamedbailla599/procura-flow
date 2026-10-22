@@ -1,7 +1,38 @@
 {
   "id": "local-achats",
-  "name": "Local",
-  "values": [],
+  "name": "ProcuraFlow Local Environment",
+  "values": [
+    {
+      "key": "FOURNISSEURS_BASE_URL",
+      "value": "http://localhost:8081",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "COMMANDES_BASE_URL",
+      "value": "http://localhost:8082",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "RECEPTIONS_BASE_URL",
+      "value": "http://localhost:8083",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "FACTURES_BASE_URL",
+      "value": "http://localhost:8084",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "fournisseurId",
+      "value": "1",
+      "type": "default",
+      "enabled": true
+    }
+  ],
   "_postman_variable_scope": "environment",
   "_postman_exported_using": "Postman/10"
 }

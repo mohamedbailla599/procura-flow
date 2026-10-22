@@ -1,6 +1,24 @@
+# Java / Maven build outputs
+target/
+*.jar
+*.war
+*.ear
+*.class
+*.log
+
+# Maven Wrapper jar (keep wrapper properties/scripts)
+!/.mvn/wrapper/maven-wrapper.jar
+
+# Environment & local secrets (NEVER commit real Neon credentials)
 .env
-node_modules/
-vendor/
-dist/
-build/
-coverage/
+.env.*
+!.env.example
+
+# IDEs & OS
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+.DS_Store

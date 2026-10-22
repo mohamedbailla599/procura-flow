@@ -1,8 +1,245 @@
 {
   "info": {
-    "name": "Projet Achats Univ",
-    "description": "Collection à compléter avec les requêtes des services achats.",
+    "name": "ProcuraFlow — Projet Achats Univ",
+    "description": "Collection Postman partagée pour tester les microservices ProcuraFlow (Fournisseurs, Commandes, Réceptions, Factures).",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
-  "item": []
+  "item": [
+    {
+      "name": "1. Service Fournisseurs (Mohamed - 8081)",
+      "item": [
+        {
+          "name": "Créer un fournisseur (201 Created)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Atlas Fournitures\",\n  \"email\": \"contact@atlas.example\",\n  \"telephone\": \"+212600000000\",\n  \"adresse\": \"Agadir, Maroc\"\n}"
+            },
+            "url": {
+              "raw": "{{FOURNISSEURS_BASE_URL}}/api/fournisseurs",
+              "host": [
+                "{{FOURNISSEURS_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "fournisseurs"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Lister les fournisseurs actifs (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{FOURNISSEURS_BASE_URL}}/api/fournisseurs",
+              "host": [
+                "{{FOURNISSEURS_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "fournisseurs"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filtrer les fournisseurs par nom et statut (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{FOURNISSEURS_BASE_URL}}/api/fournisseurs?actif=true&nom=Atlas",
+              "host": [
+                "{{FOURNISSEURS_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "fournisseurs"
+              ],
+              "query": [
+                {
+                  "key": "actif",
+                  "value": "true"
+                },
+                {
+                  "key": "nom",
+                  "value": "Atlas"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Consulter un fournisseur par ID (200 OK / 404 Not Found)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{FOURNISSEURS_BASE_URL}}/api/fournisseurs/{{fournisseurId}}",
+              "host": [
+                "{{FOURNISSEURS_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "fournisseurs",
+                "{{fournisseurId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mettre à jour un fournisseur (200 OK)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Atlas Fournitures Maroc\",\n  \"email\": \"contact@atlas.example\",\n  \"telephone\": \"+212528840000\",\n  \"adresse\": \"Zone Industrielle Tassila, Agadir\"\n}"
+            },
+            "url": {
+              "raw": "{{FOURNISSEURS_BASE_URL}}/api/fournisseurs/{{fournisseurId}}",
+              "host": [
+                "{{FOURNISSEURS_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "fournisseurs",
+                "{{fournisseurId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Désactiver logiquement un fournisseur - PATCH (200 OK)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{FOURNISSEURS_BASE_URL}}/api/fournisseurs/{{fournisseurId}}/desactiver",
+              "host": [
+                "{{FOURNISSEURS_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "fournisseurs",
+                "{{fournisseurId}}",
+                "desactiver"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Désactiver logiquement un fournisseur - DELETE contrat (204 No Content)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{FOURNISSEURS_BASE_URL}}/api/fournisseurs/{{fournisseurId}}",
+              "host": [
+                "{{FOURNISSEURS_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "fournisseurs",
+                "{{fournisseurId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Historique des commandes d'un fournisseur via Commandes (200 OK / 503)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{FOURNISSEURS_BASE_URL}}/api/fournisseurs/{{fournisseurId}}/commandes",
+              "host": [
+                "{{FOURNISSEURS_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "fournisseurs",
+                "{{fournisseurId}}",
+                "commandes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Santé du service (Actuator Health)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{FOURNISSEURS_BASE_URL}}/actuator/health",
+              "host": [
+                "{{FOURNISSEURS_BASE_URL}}"
+              ],
+              "path": [
+                "actuator",
+                "health"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
 }
