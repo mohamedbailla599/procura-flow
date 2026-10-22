@@ -1,11 +1,15 @@
-<div align="center">
+# Gestion des achats - architecture microservices
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Ce dépôt contient le squelette du projet de gestion des achats. Les services,
+le schéma de base de données et les requêtes Postman restent à définir avant
+de pouvoir lancer l'application.
 
-  <h1>Built with AI Studio</h2>
+## Services prévus
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+- `service-fournisseurs-mohamed` : gestion des fournisseurs.
+- `service-commandes-yassine` : gestion des commandes d'achat.
+- `service-receptions-ali` : suivi des réceptions.
+- `service-factures-hamza` : gestion des factures.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
-
-</div>
+Les fichiers `Dockerfile`, `database/init.sql` et `docker-compose.yml` sont des
+points de départ à compléter avec la stack et le modèle de données retenus.

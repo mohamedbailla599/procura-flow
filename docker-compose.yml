@@ -1,0 +1,78 @@
+version: '3.8'
+
+networks:
+  reseau-achats:
+    driver: bridge
+
+volumes:
+  pg_data:
+
+services:
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: db_achats_univ
+      POSTGRES_USER: admin_achats
+      POSTGRES_PASSWORD: pass_secure
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - reseau-achats
+
+  service-fournisseurs:
+    build: ./service-fournisseurs-mohamed
+    container_name: service-fournisseurs
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_URL=jdbc:postgresql://postgres-db:5432/db_achats_univ?currentSchema=schema_fournisseurs
+    depends_on:
+      - postgres-db
+    networks:
+      - reseau-achats
+
+  service-commandes:
+    build: ./service-commandes-yassine
+    container_name: service-commandes
+    ports:
+      - "8082:8082"
+    environment:
+      - DB_URL=jdbc:postgresql://postgres-db:5432/db_achats_univ?currentSchema=schema_commandes
+      - FOURNISSEURS_URL=http://service-fournisseurs:8081
+    depends_on:
+      - postgres-db
+      - service-fournisseurs
+    networks:
+      - reseau-achats
+
+  service-receptions:
+    build: ./service-receptions-ali
+    container_name: service-receptions
+    ports:
+      - "8083:8083"
+    environment:
+      - DB_URL=jdbc:postgresql://postgres-db:5432/db_achats_univ?currentSchema=schema_receptions
+      - COMMANDES_URL=http://service-commandes:8082
+    depends_on:
+      - postgres-db
+      - service-commandes
+    networks:
+      - reseau-achats
+
+  service-factures:
+    build: ./service-factures-hamza
+    container_name: service-factures
+    ports:
+      - "8084:8084"
+    environment:
+      - DB_URL=jdbc:postgresql://postgres-db:5432/db_achats_univ?currentSchema=schema_factures
+      - COMMANDES_URL=http://service-commandes:8082
+    depends_on:
+      - postgres-db
+      - service-commandes
+    networks:
+      - reseau-achats
