@@ -34,6 +34,7 @@ public class FournisseurService {
 
     @Transactional
     public FournisseurResponse createFournisseur(FournisseurRequest request) {
+        validateRequest(request);
         String normalizedEmail = normalizeEmail(request.email());
 
         if (fournisseurRepository.existsByEmailIgnoreCase(normalizedEmail)) {
@@ -97,6 +98,7 @@ public class FournisseurService {
 
     @Transactional
     public FournisseurResponse updateFournisseur(Long id, FournisseurRequest request) {
+        validateRequest(request);
         Fournisseur existing = findEntityOrThrow(id);
         String normalizedEmail = normalizeEmail(request.email());
 
@@ -140,6 +142,18 @@ public class FournisseurService {
     private Fournisseur findEntityOrThrow(Long id) {
         return fournisseurRepository.findById(id)
                 .orElseThrow(() -> new FournisseurNotFoundException(id));
+    }
+
+    private static void validateRequest(FournisseurRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("La requête ne peut pas être null");
+        }
+        if (request.nom() == null || request.nom().isBlank()) {
+            throw new IllegalArgumentException("Le nom du fournisseur est obligatoire");
+        }
+        if (request.email() == null || request.email().isBlank()) {
+            throw new IllegalArgumentException("L'adresse e-mail du fournisseur est obligatoire");
+        }
     }
 
     private static String normalizeEmail(String email) {
